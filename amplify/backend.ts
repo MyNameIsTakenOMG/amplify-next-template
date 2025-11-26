@@ -8,6 +8,7 @@ import {
   StreamViewType,
   TableV2,
 } from 'aws-cdk-lib/aws-dynamodb';
+import { RemovalPolicy, Stack } from 'aws-cdk-lib';
 
 defineBackend({
   // auth,
