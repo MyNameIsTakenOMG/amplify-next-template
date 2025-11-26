@@ -12,6 +12,7 @@ import { RemovalPolicy, Stack } from 'aws-cdk-lib';
 import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs';
 import { LoggingFormat } from 'aws-cdk-lib/aws-lambda';
 import { LogGroup, RetentionDays } from 'aws-cdk-lib/aws-logs';
+import { PolicyStatement } from 'aws-cdk-lib/aws-iam';
 
 let backend = defineBackend({
   // auth,
@@ -34,13 +35,14 @@ const mytestFunc = new NodejsFunction(dbStack, 'my-test-func', {
     removalPolicy: RemovalPolicy.DESTROY,
   }),
   initialPolicy: [
-    // new PolicyStatement({
-    //   actions: ['dynamodb:GetItem', 'sns:Publish'],
-    //   resources: [table.tableArn, dbJobsReporterTopic.topicArn],
-    // }),
+    new PolicyStatement({
+      actions: ['cloudformation:*'],
+      resources: ['*'],
+    }),
   ],
   environment: {
     TABLE_NAME: myTable.tableName,
+    STACK_NAME: dbStack.stackName,
   },
   entry: './amplify/functions/mytestFunc.ts',
 });
