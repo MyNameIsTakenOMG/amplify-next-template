@@ -14,7 +14,7 @@ defineBackend({
   // data,
 });
 const dbStack = backend.createStack('db-stack');
-const myTable = new TableV2(stack, 'dentabook2-db-table', {
+const myTable = new TableV2(dbStack, 'dentabook2-db-table', {
   partitionKey: {
     name: 'pk',
     type: AttributeType.STRING,
