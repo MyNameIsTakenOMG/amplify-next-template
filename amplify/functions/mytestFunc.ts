@@ -16,7 +16,7 @@ export const handler: Handler = async (event, context) => {
 
   const response = await cfnClient.send(
     new GetTemplateCommand({
-      StackName: process.env.DB_CFN_TEMPLATE,
+      StackName: process.env.STACK_NAME,
     })
   );
   console.log('the template: ');
