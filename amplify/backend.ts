@@ -10,7 +10,7 @@ import {
 } from 'aws-cdk-lib/aws-dynamodb';
 import { RemovalPolicy, Stack } from 'aws-cdk-lib';
 
-defineBackend({
+let backend = defineBackend({
   // auth,
   // data,
 });
