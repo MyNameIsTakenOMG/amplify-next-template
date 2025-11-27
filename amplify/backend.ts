@@ -20,18 +20,17 @@ let backend = defineBackend({
 });
 const dbStack = backend.createStack('db-stack');
 const myTable = new TableV2(dbStack, 'dentabook2-db-table', {
-  tableName: 'dentabook2-db-table',
   partitionKey: {
     name: 'pk',
     type: AttributeType.STRING,
   },
   removalPolicy: RemovalPolicy.DESTROY,
 });
-const mytestFunc = new NodejsFunction(dbStack, 'my-test-func', {
-  functionName: 'my-test-func',
+const mytestChange = new NodejsFunction(dbStack, 'my-test-change', {
+  functionName: 'my-test-change',
   handler: 'index.handler',
   loggingFormat: LoggingFormat.JSON,
-  logGroup: new LogGroup(dbStack, 'my-test-func-log', {
+  logGroup: new LogGroup(dbStack, 'my-test-change-log', {
     retention: RetentionDays.ONE_DAY,
     removalPolicy: RemovalPolicy.DESTROY,
   }),
@@ -45,5 +44,5 @@ const mytestFunc = new NodejsFunction(dbStack, 'my-test-func', {
     TABLE_NAME: myTable.tableName,
     STACK_NAME: dbStack.stackName,
   },
-  entry: './amplify/functions/mytestFunc.ts',
+  entry: './amplify/functions/mytestChange.ts',
 });
