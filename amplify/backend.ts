@@ -13,11 +13,32 @@ import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs';
 import { LoggingFormat } from 'aws-cdk-lib/aws-lambda';
 import { LogGroup, RetentionDays } from 'aws-cdk-lib/aws-logs';
 import { PolicyStatement } from 'aws-cdk-lib/aws-iam';
+import {
+  AuthorizationType,
+  CognitoUserPoolsAuthorizer,
+  Cors,
+  EndpointType,
+  LambdaIntegration,
+  RestApi,
+} from 'aws-cdk-lib/aws-apigateway';
 
 let backend = defineBackend({
   // auth,
   // data,
 });
+
+    // configure a new rest api
+    const myRestApi = new RestApi(apiStack, 'test-api', {
+      endpointTypes: [EndpointType.REGIONAL],
+      deployOptions: {
+        stageName: 'testing',
+      },
+      minCompressionSize: Size.kibibytes(1), // compress responses larger than 1 KiB
+    });
+
+    // ## Admin Resources: "/a"
+    const aResource = myRestApi.root.addResource('a');
+
 const dbStack = backend.createStack('db-stack');
 const myTable = new TableV2(dbStack, 'dentabook2-db-table', {
   partitionKey: {
