@@ -33,7 +33,6 @@ const apiStack = backend.createStack('api-stack')
       deployOptions: {
         stageName: 'testing',
       },
-      minCompressionSize: Size.kibibytes(1), // compress responses larger than 1 KiB
     });
 
     // ## Admin Resources: "/a"
