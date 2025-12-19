@@ -37,6 +37,7 @@ const apiStack = backend.createStack('api-stack')
 
     // ## Admin Resources: "/a"
     const aResource = myRestApi.root.addResource('a');
+aResource.addMethod('GET')
 
 const dbStack = backend.createStack('db-stack');
 const myTable = new TableV2(dbStack, 'dentabook2-db-table', {
