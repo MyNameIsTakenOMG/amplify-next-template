@@ -26,7 +26,7 @@ let backend = defineBackend({
   // auth,
   // data,
 });
-
+const apiStack = backend.createStack('api-stack')
     // configure a new rest api
     const myRestApi = new RestApi(apiStack, 'test-api', {
       endpointTypes: [EndpointType.REGIONAL],
